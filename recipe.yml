@@ -1,0 +1,30 @@
+base: registry.vanillaos.org/vanillaos/desktop:main
+name: Vanilla Desktop Nvidia
+id: vanilla-nvidia
+labels:
+  maintainer: Vanilla OS Contributors
+args:
+  DEBIAN_FRONTEND: noninteractive
+runs:
+- echo 'APT::Install-Recommends "0";' > /etc/apt/apt.conf.d/01norecommends
+
+modules:
+- name: init-setup
+  type: shell
+  commands:
+  - pkg-unlock
+
+- name: nvidia-driver
+  type: apt
+  source:
+    packages:
+    - nvidia-driver
+    - libnvidia-cfg1
+
+- name: cleanup
+  type: shell
+  commands:
+  - apt autoremove -y
+  - apt clean
+  - pkg-lock
+
