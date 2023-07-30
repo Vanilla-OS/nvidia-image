@@ -1,4 +1,4 @@
-base: ghcr.io/vanilla-os/desktop:ghcr
+base: ghcr.io/vanilla-os/desktop:main
 name: Vanilla Desktop Nvidia
 id: vanilla-nvidia
 labels:
