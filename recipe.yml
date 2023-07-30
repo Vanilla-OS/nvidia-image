@@ -1,4 +1,4 @@
-base: registry.vanillaos.org/vanillaos/desktop:main
+base: ghcr.io/vanilla-os/desktop:main
 name: Vanilla Desktop Nvidia
 id: vanilla-nvidia
 labels:
