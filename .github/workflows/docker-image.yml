@@ -20,7 +20,7 @@ jobs:
 
     - name: Vib
       run: |
-        wget https://github.com/Vanilla-OS/Vib/releases/download/v0.2.9/vib
+        wget https://github.com/Vanilla-OS/Vib/releases/download/v0.3.1/vib
         chmod +x vib
         ./vib build recipe.yml
 
