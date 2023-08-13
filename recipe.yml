@@ -12,7 +12,7 @@ modules:
 - name: init-setup
   type: shell
   commands:
-  - pkg-unlock
+  - lpkg --unlock
 
 - name: nvidia-driver
   type: apt
@@ -27,4 +27,4 @@ modules:
   commands:
   - apt autoremove -y
   - apt clean
-  - pkg-lock
+  - lpkg --lock
