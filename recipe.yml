@@ -21,6 +21,7 @@ modules:
     - nvidia-driver
     - libnvidia-cfg1
     - nvidia-vaapi-driver
+    - switcheroo-control
 
 - name: cleanup
   type: shell
