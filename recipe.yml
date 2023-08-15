@@ -13,6 +13,7 @@ modules:
   type: shell
   commands:
   - lpkg --unlock
+  - apt update
 
 - name: nvidia-driver
   type: apt
