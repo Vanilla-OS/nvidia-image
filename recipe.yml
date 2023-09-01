@@ -36,6 +36,11 @@ modules:
   - cp /sources/vanilla-tools/nrun /usr/bin/nrun
   - chmod +x /usr/bin/nrun
 
+- name: reconfigure-gdm
+  type: shell
+  commands:
+  - sed -i '/^RUN+="\/usr\/libexec\/gdm-runtime-config/ s/^/# /' /usr/lib/udev/rules.d/61-gdm.rules
+
 - name: cleanup
   type: shell
   commands:
