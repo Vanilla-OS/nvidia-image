@@ -38,6 +38,23 @@ modules:
   - chmod +x /usr/bin/nrun
   - chmod +x /usr/bin/prime-switch
 
+- name: vanilla-prime-utility
+  type: meson
+  source:
+    type: git
+    url: https://github.com/Vanilla-OS/vanilla-prime-utility
+    branch: main
+    commit: latest
+  modules:
+  - name: vanilla-prime-utility-deps-install
+    type: apt
+    source:
+      packages:
+      - build-essential
+      - gettext
+      - libadwaita-1-dev
+      - meson
+
 - name: reconfigure-gdm
   type: shell
   commands:
