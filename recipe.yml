@@ -65,9 +65,9 @@ modules:
   commands:
   - apt autoremove -y
   - apt clean
-  - lpkg --lock
   - apt remove -y zutty gnome-shell-extension-prefs
   - SUDO_FORCE_REMOVE=yes apt purge -y sudo
+  - lpkg --lock
 
 - name: fsguard
   type: fsguard
