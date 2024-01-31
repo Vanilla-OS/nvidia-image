@@ -55,10 +55,10 @@ modules:
       - libadwaita-1-dev
       - meson
 
-- name: reconfigure-gdm
+- name: enable-wayland
   type: shell
   commands:
-  - sed -i '/^RUN+="\/usr\/libexec\/gdm-runtime-config/ s/^/# /' /usr/lib/udev/rules.d/61-gdm.rules
+  - ln -s /dev/null /etc/udev/rules.d/61-gdm.rules
 
 - name: cleanup
   type: shell
