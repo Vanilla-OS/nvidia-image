@@ -20,9 +20,14 @@ modules:
   source:
     packages:
     - nvidia-driver
+    - nvidia-vaapi-driver
+
+- name: nvidia-utilities
+  type: apt
+  source:
+    packages:
     - nvidia-settings
     - nvidia-smi
-    - nvidia-vaapi-driver
     - switcheroo-control
 
 - name: vanilla-tools
