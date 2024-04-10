@@ -1,97 +1,100 @@
-base: ghcr.io/vanilla-os/desktop:main
 name: Vanilla Desktop Nvidia
 id: vanilla-nvidia
-labels:
-  maintainer: Vanilla OS Contributors
-args:
-  DEBIAN_FRONTEND: noninteractive
-runs:
-- echo 'APT::Install-Recommends "1";' > /etc/apt/apt.conf.d/01norecommends
+stages:
+- id: build
+  base: ghcr.io/vanilla-os/desktop:main
+  singlelayer: false
+  labels:
+    maintainer: Vanilla OS Contributors
+  args:
+    DEBIAN_FRONTEND: noninteractive
+  runs:
+  - echo 'APT::Install-Recommends "1";' > /etc/apt/apt.conf.d/01norecommends
 
-modules:
-- name: init-setup
-  type: shell
-  commands:
-  - lpkg --unlock
-  - apt update
-
-- name: nvidia-driver
-  type: apt
-  source:
-    packages:
-    - nvidia-driver
-    - nvidia-vaapi-driver
-
-- name: nvidia-utilities
-  type: apt
-  source:
-    packages:
-    - nvidia-settings
-    - nvidia-smi
-    - switcheroo-control
-
-- name: vanilla-tools
-  type: shell
-  source:
-    type: tar
-    # switch to production build once in production
-    url: https://github.com/Vanilla-OS/vanilla-tools/releases/download/continuous/vanilla-tools.tar.gz
-  commands:
-  - mkdir -p /usr/bin
-  - cp /sources/vanilla-tools/nrun /usr/bin/nrun
-  - cp /sources/vanilla-tools/prime-switch /usr/bin/prime-switch
-  - chmod +x /usr/bin/nrun
-  - chmod +x /usr/bin/prime-switch
-
-- name: vanilla-prime-utility
-  type: meson
-  source:
-    type: git
-    url: https://github.com/Vanilla-OS/vanilla-prime-utility
-    branch: main
-    commit: latest
   modules:
-  - name: vanilla-prime-utility-deps-install
+  - name: init-setup
+    type: shell
+    commands:
+    - lpkg --unlock
+    - apt update
+
+  - name: nvidia-driver
     type: apt
     source:
       packages:
-      - build-essential
-      - gettext
-      - libadwaita-1-dev
-      - meson
+      - nvidia-driver
+      - nvidia-vaapi-driver
 
-- name: enable-wayland
-  type: shell
-  commands:
-  - mkdir -p /etc/udev/rules.d
-  - ln -s /dev/null /etc/udev/rules.d/61-gdm.rules
+  - name: nvidia-utilities
+    type: apt
+    source:
+      packages:
+      - nvidia-settings
+      - nvidia-smi
+      - switcheroo-control
 
-- name: cleanup
-  type: shell
-  commands:
-  - apt autoremove -y
-  - apt clean
-  - apt remove -y zutty gnome-shell-extension-prefs
-  - SUDO_FORCE_REMOVE=yes apt purge -y sudo
-  - lpkg --lock
+  - name: vanilla-tools
+    type: shell
+    source:
+      type: tar
+      # switch to production build once in production
+      url: https://github.com/Vanilla-OS/vanilla-tools/releases/download/continuous/vanilla-tools.tar.gz
+    commands:
+    - mkdir -p /usr/bin
+    - cp /sources/vanilla-tools/nrun /usr/bin/nrun
+    - cp /sources/vanilla-tools/prime-switch /usr/bin/prime-switch
+    - chmod +x /usr/bin/nrun
+    - chmod +x /usr/bin/prime-switch
 
-- name: fsguard
-  type: fsguard
-  CustomFsGuard: false
-  FsGuardLocation: "/usr/sbin/FsGuard"
-  GenerateKey: true
-  FilelistPaths: ["/usr/bin"]
-  modules:
-    - name: remove-prev-fsguard
-      type: shell
-      commands:
-        - rm -rf /FsGuard 
-        - rm -f ./minisign.pub ./minisign.key 
-        - chmod +x /usr/sbin/init
+  - name: vanilla-prime-utility
+    type: meson
+    source:
+      type: git
+      url: https://github.com/Vanilla-OS/vanilla-prime-utility
+      branch: main
+      commit: latest
+    modules:
+    - name: vanilla-prime-utility-deps-install
+      type: apt
+      source:
+        packages:
+        - build-essential
+        - gettext
+        - libadwaita-1-dev
+        - meson
 
-- name: cleanup2
-  type: shell
-  commands:
-    - rm -rf /tmp/*
-    - rm -rf /var/tmp/*
-    - rm -rf /sources
+  - name: enable-wayland
+    type: shell
+    commands:
+    - mkdir -p /etc/udev/rules.d
+    - ln -s /dev/null /etc/udev/rules.d/61-gdm.rules
+
+  - name: cleanup
+    type: shell
+    commands:
+    - apt autoremove -y
+    - apt clean
+    - apt remove -y zutty gnome-shell-extension-prefs
+    - SUDO_FORCE_REMOVE=yes apt purge -y sudo
+    - lpkg --lock
+
+  - name: fsguard
+    type: fsguard
+    CustomFsGuard: false
+    FsGuardLocation: "/usr/sbin/FsGuard"
+    GenerateKey: true
+    FilelistPaths: ["/usr/bin"]
+    modules:
+      - name: remove-prev-fsguard
+        type: shell
+        commands:
+          - rm -rf /FsGuard 
+          - rm -f ./minisign.pub ./minisign.key 
+          - chmod +x /usr/sbin/init
+
+  - name: cleanup2
+    type: shell
+    commands:
+      - rm -rf /tmp/*
+      - rm -rf /var/tmp/*
+      - rm -rf /sources
