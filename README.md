@@ -6,7 +6,10 @@ This image is based on top of [`vanillaos/desktop`](https://github.com/Vanilla-O
 
 ## Build
 
+> [!NOTE]
+> The fsguard compiled plugin `.so` file should be downloaded from the [latest release](https://github.com/Vanilla-OS/vib-fsguard/releases/latest) and be placed under a `plugins` directory beside the `recipe.yml` file.
+
 ```bash
-sh prepare.sh
+vib build recipe.yml
 podman image build -t vanillaos/nvidia .
 ```
