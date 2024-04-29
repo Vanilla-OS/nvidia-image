@@ -1,5 +1,5 @@
 name: Vanilla Desktop Nvidia
-id: vanilla-nvidia
+id: nvidia
 stages:
 - id: build
   base: ghcr.io/vanilla-os/desktop:main
