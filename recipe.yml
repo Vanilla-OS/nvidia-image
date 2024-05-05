@@ -25,6 +25,12 @@ stages:
       - nvidia-driver
       - nvidia-vaapi-driver
 
+  - name: nvidia-cuda
+    type: apt
+    source:
+      packages:
+      - nvidia-cuda-toolkit
+
   - name: nvidia-utilities
     type: apt
     source:
