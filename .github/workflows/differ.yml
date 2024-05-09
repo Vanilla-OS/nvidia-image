@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/vanilla-os/nvidia:main
+    if: github.repository == 'vanilla-os/nvidia-image'
 
     steps:
       - uses: actions/checkout@v4
