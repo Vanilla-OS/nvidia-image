@@ -54,8 +54,8 @@ stages:
       url: https://github.com/Vanilla-OS/vanilla-tools/releases/download/continuous/vanilla-tools.tar.gz
     commands:
     - mkdir -p /usr/bin
-    - cp /sources/vanilla-tools/nrun /usr/bin/nrun
-    - cp /sources/vanilla-tools/prime-switch /usr/bin/prime-switch
+    - cp /sources/vanilla-tools/vanilla-tools/nrun /usr/bin/nrun
+    - cp /sources/vanilla-tools/vanilla-tools/prime-switch /usr/bin/prime-switch
     - chmod +x /usr/bin/nrun
     - chmod +x /usr/bin/prime-switch
 
