@@ -25,8 +25,8 @@ stages:
     - curl -fSsL https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/3bf863cc.pub | gpg --dearmor -o /usr/share/keyrings/nvidia-drivers.gpg
     - echo 'deb [signed-by=/usr/share/keyrings/nvidia-drivers.gpg] https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/ /' > /etc/apt/sources.list.d/nvidia-drivers.list
     - apt-get update
-    - apt-get install nvidia-driver nvidia-vaapi-driver nvidia-settings nvidia-smi -y
-    - apt-mark hold nvidia-driver nvidia-vaapi-driver nvidia-settings nvidia-smi
+    - apt-get install nvidia-kernel-open nvidia-driver nvidia-vaapi-driver nvidia-settings nvidia-smi -y
+    - apt-mark hold nvidia-kernel-open nvidia-driver nvidia-vaapi-driver nvidia-settings nvidia-smi
 
   - name: extra-utilities
     type: apt
