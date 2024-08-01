@@ -1,0 +1,1 @@
+quiet splash bgrt_disable $vt_handoff lsm=integrity nvidia.NVreg_DynamicPowerManagement=0x02 nvidia.NVreg_PreserveVideoMemoryAllocations=1 nvidia.NVreg_TemporaryFilePath=/var/tmp nvidia-drm.fbdev=1
