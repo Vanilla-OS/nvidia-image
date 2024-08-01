@@ -56,12 +56,6 @@ stages:
     - chmod +x /usr/bin/nrun
     - chmod +x /usr/bin/prime-switch
 
-  - name: enable-wayland
-    type: shell
-    commands:
-    - mkdir -p /etc/udev/rules.d
-    - ln -s /dev/null /etc/udev/rules.d/61-gdm.rules
-
   - name: cleanup
     type: shell
     commands:
