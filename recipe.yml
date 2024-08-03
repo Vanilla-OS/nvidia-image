@@ -28,7 +28,7 @@ stages:
 
   - name: nvidia-official-driver
     type: shell
-    source:
+    commands:
     - apt-mark hold nvidia-kernel-open nvidia-driver nvidia-vaapi-driver nvidia-settings nvidia-smi nvidia-container-toolkit
     modules:
       - name: install-nvidia
