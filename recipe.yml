@@ -28,22 +28,31 @@ stages:
 
   - name: nvidia-official-driver
     type: shell
-    commands:
-    - apt-get update
-    - apt-get install nvidia-kernel-open nvidia-driver nvidia-vaapi-driver nvidia-settings nvidia-smi -y
-    - apt-mark hold nvidia-kernel-open nvidia-driver nvidia-vaapi-driver nvidia-settings nvidia-smi
+    source:
+    - apt-mark hold nvidia-kernel-open nvidia-driver nvidia-vaapi-driver nvidia-settings nvidia-smi nvidia-container-toolkit
+    modules:
+      - name: install-nvidia
+        type: apt
+        source:
+          packages:
+          - nvidia-kernel-open
+          - nvidia-driver
+          - nvidia-vaapi-driver
+          - nvidia-settings
+          - nvidia-persistenced
+          - nvidia-smi
+          - libnvidia-cfg1
+          - libnvidia-glcore
+          - libnvidia-glvkspirv
+          - libnvidia-gpucomp
+          - libnvidia-fbc1
+          - nvidia-container-toolkit
 
   - name: extra-utilities
     type: apt
     source:
       packages:
       - switcheroo-control
-
-  - name: nvidia-container-toolkit
-    type: shell
-    commands:
-      - apt-get install nvidia-container-toolkit -y
-      - apt-mark hold nvidia-container-toolkit
 
   - name: vanilla-tools
     type: shell
