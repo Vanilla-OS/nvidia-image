@@ -19,34 +19,15 @@ stages:
     - lpkg --unlock
     - apt-get update
 
-  - name: nvidia-official-repo
-    type: shell
-    commands:
-    - curl -fSsL https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/3bf863cc.pub | gpg --dearmor -o /usr/share/keyrings/nvidia-drivers.gpg
-    - echo 'deb [signed-by=/usr/share/keyrings/nvidia-drivers.gpg] https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/ /' > /etc/apt/sources.list.d/nvidia-drivers.list
-    - apt-get update
-
-  - name: nvidia-official-driver
-    type: shell
-    commands:
-    - apt-mark hold nvidia-kernel-open nvidia-driver nvidia-vaapi-driver nvidia-settings nvidia-persistenced nvidia-smi libnvidia-cfg1 libnvidia-glcore libnvidia-glvkspirv libnvidia-gpucomp libnvidia-fbc1 nvidia-container-toolkit
-    modules:
-      - name: install-nvidia
-        type: apt
-        source:
-          packages:
-          - nvidia-kernel-open
-          - nvidia-driver
-          - nvidia-vaapi-driver
-          - nvidia-settings
-          - nvidia-persistenced
-          - nvidia-smi
-          - libnvidia-cfg1
-          - libnvidia-glcore
-          - libnvidia-glvkspirv
-          - libnvidia-gpucomp
-          - libnvidia-fbc1
-          - nvidia-container-toolkit
+  - name: install-nvidia
+    type: apt
+    source:
+      packages:
+      - nvidia-driver
+      - nvidia-vaapi-driver
+      - nvidia-settings
+      - nvidia-smi
+      - firmware-misc-nonfree
 
   - name: nvidia-sysd-units
     type: shell
