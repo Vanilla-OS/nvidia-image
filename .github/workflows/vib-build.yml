@@ -27,13 +27,13 @@ jobs:
   check_base_status:
     runs-on: ubuntu-latest
     steps:
-    - name: Clone base image. 
+    - name: Clone base image
       if: ${{ github.ref_type == 'tag' }}
       uses: actions/checkout@v4
       with:
         repository: Vanilla-OS/desktop-image
 
-    - name: Check if base is up to date.
+    - name: Check if the base is up to date.
       if: ${{ github.ref_type == 'tag' }}
       run: |
         git fetch origin
@@ -55,7 +55,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Change tag in recipe.
+    - name: Change tag in recipe
+      if: ${{ github.ref_type == 'tag' }}
       run: |
         sed 's/ghcr.io\/vanilla-os\/desktop:dev/ghcr.io\/vanilla-os\/desktop:main/' -i recipe.yml
 
@@ -79,6 +80,7 @@ jobs:
       if: ${{ github.ref_type != 'tag' }}
       run: |
         echo "EXTRA_TAG=ref,event=branch" >> "$GITHUB_ENV"
+
     - name: Extra image tag release
       if: ${{ github.ref_type == 'tag' }}
       run: |
