@@ -1,8 +1,8 @@
-# Vanilla OS Nvidia Image
+# Vanilla OS Nvidia Alternative Image
 
-Containerfile for building a Vanilla OS Desktop + Nvidia image.
+Containerfile for building a Vanilla OS Desktop + Nvidia image modified to use an older driver.
 
-This image is based on top of [`vanillaos/desktop`](https://github.com/Vanilla-OS/desktop-image/pkgs/container/desktop) and offers the default Vanilla OS Desktop experience with GNOME and Nvidia drivers.
+This image is based on top of [`vanillaos/nvidia`](https://github.com/Vanilla-OS/nvidia-image/pkgs/container/nvidia) and offers the default Vanilla OS Desktop experience with GNOME and Older Nvidia drivers.
 
 ## Build
 
@@ -11,7 +11,7 @@ This image is based on top of [`vanillaos/desktop`](https://github.com/Vanilla-O
 
 ```bash
 vib build recipe.yml
-podman image build -t vanillaos/nvidia .
+podman image build -t vanillaos/nvidia-alternative .
 ```
 
 ## Verify Image Build Provenance Attestation
@@ -19,5 +19,5 @@ podman image build -t vanillaos/nvidia .
 All the image builds/pushes are attested for build provenance and integrity using the [attest-build-provenance](https://github.com/actions/attest-build-provenance) action. The attestations can be verified [here](https://github.com/Vanilla-OS/nvidia-image/attestations) or by having the latest version of [GitHub CLI](https://github.com/cli/cli/releases/latest) installed in your system. Then, execute the following command:
 
 ```sh
-gh attestation verify oci://ghcr.io/vanilla-os/nvidia:main --owner Vanilla-OS
+gh attestation verify oci://ghcr.io/vanilla-os/nvidia-alternative:main --owner Vanilla-OS
 ```
