@@ -34,9 +34,10 @@ stages:
     commands:
     - mkdir -p /etc/systemd/system/systemd-suspend.service.wants
     - mkdir -p /etc/systemd/system/systemd-hibernate.service.wants
-    - ln -s /usr/lib/systemd/system/nvidia-suspend.service /etc/systemd/system/systemd-suspend.service.wants/nvidia-suspend.service || true
-    - ln -s /usr/lib/systemd/system/nvidia-hibernate.service /etc/systemd/system/systemd-hibernate.service.wants/nvidia-hibernate.service || true
-    - ln -s /usr/lib/systemd/system/nvidia-resume.service /etc/systemd/system/systemd-hibernate.service.wants/nvidia-resume.service || true
+    - ln -s /usr/lib/systemd/system/nvidia-suspend.service /etc/systemd/system/systemd-suspend.service.wants/nvidia-suspend.service
+    - ln -s /usr/lib/systemd/system/nvidia-hibernate.service /etc/systemd/system/systemd-hibernate.service.wants/nvidia-hibernate.service
+    - ln -s /usr/lib/systemd/system/nvidia-resume.service /etc/systemd/system/systemd-suspend.service.wants/nvidia-resume.service
+    - ln -s /usr/lib/systemd/system/nvidia-resume.service /etc/systemd/system/systemd-hibernate.service.wants/nvidia-resume.service
 
   - name: extra-utilities
     type: apt
