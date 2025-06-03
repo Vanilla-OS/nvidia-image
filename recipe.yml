@@ -28,12 +28,10 @@ stages:
       - nvidia-settings
       - nvidia-smi
       - firmware-misc-nonfree
-
-  - name: enable-wayland
-    type: shell
-    commands:
-    - mkdir -p /etc/udev/rules.d
-    - ln -s /dev/null /etc/udev/rules.d/61-gdm.rules
+      - nvidia-persistenced
+      - libnvidia-cfg1
+      - libnvidia-glcore
+      - libnvidia-glvkspirv
 
   - name: cleanup
     type: shell
