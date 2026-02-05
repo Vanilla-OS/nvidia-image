@@ -1,8 +1,11 @@
 name: Vanilla Desktop Nvidia
 id: nvidia
+vibversion: 1.0.7
+
 stages:
 - id: build
   base: ghcr.io/vanilla-os/desktop:dev
+  addincludes: true
   singlelayer: false
   labels:
     maintainer: Vanilla OS Contributors
@@ -21,13 +24,13 @@ stages:
 
   - name: install-nvidia
     type: apt
-    source:
-      packages:
-      - nvidia-driver
-      - nvidia-vaapi-driver
-      - nvidia-settings
-      - nvidia-smi
-      - firmware-misc-nonfree
+    sources:
+      - packages:
+        - nvidia-driver
+        - nvidia-vaapi-driver
+        - nvidia-settings
+        - nvidia-smi
+        - firmware-misc-nonfree
 
   - name: nvidia-sysd-units
     type: shell
@@ -40,20 +43,20 @@ stages:
 
   - name: extra-utilities
     type: apt
-    source:
-      packages:
-      - switcheroo-control
+    sources:
+      - packages:
+        - switcheroo-control
 
   - name: vanilla-tools
     type: shell
-    source:
-      type: tar
-      url: https://github.com/Vanilla-OS/vanilla-tools/releases/download/v1.0.0/vanilla-tools.tar.gz
-      checksum: 0e1d92d9c9154f9a115e97b40ff692afa52ddd0d9f770a8ec67440bf1a48aa72
+    sources:
+      - type: tar
+        url: https://github.com/Vanilla-OS/vanilla-tools/releases/download/v1.0.0/vanilla-tools.tar.gz
+        checksum: 0e1d92d9c9154f9a115e97b40ff692afa52ddd0d9f770a8ec67440bf1a48aa72
     commands:
     - mkdir -p /usr/bin
-    - cp /sources/vanilla-tools/vanilla-tools/nrun /usr/bin/nrun
-    - cp /sources/vanilla-tools/vanilla-tools/prime-switch /usr/bin/prime-switch
+    - cp /sources/vanilla-tools/vanilla-tools/vanilla-tools/nrun /usr/bin/nrun
+    - cp /sources/vanilla-tools/vanilla-tools/vanilla-tools/prime-switch /usr/bin/prime-switch
     - chmod +x /usr/bin/nrun
     - chmod +x /usr/bin/prime-switch
 
@@ -91,4 +94,3 @@ stages:
     commands:
       - rm -rf /tmp/*
       - rm -rf /var/tmp/*
-      - rm -rf /sources
