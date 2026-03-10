@@ -1,6 +1,6 @@
 name: Vanilla Desktop Nvidia
 id: nvidia
-vibversion: 1.0.7
+vibversion: 1.1.0
 
 stages:
 - id: build
@@ -14,6 +14,14 @@ stages:
   runs:
     commands:
       - echo 'APT::Install-Recommends "1";' > /etc/apt/apt.conf.d/01norecommends
+  cleanup:
+    - /var/cache/apt/pkgcache.bin
+    - /var/cache/apt/srcpkgcache.bin
+    - /var/cache/debconf
+    - /var/cache/fontconfig
+    - /var/cache/ldconfig
+    - /var/cache/man
+    - /var/log/*
 
   modules:
   - name: init-setup
@@ -31,6 +39,8 @@ stages:
         - nvidia-settings
         - nvidia-smi
         - firmware-misc-nonfree
+    cleanup:
+      - /var/lib/dkms/mok.key
 
   - name: nvidia-sysd-units
     type: shell
@@ -93,9 +103,3 @@ stages:
           - rm -rf /FsGuard 
           - rm -f ./minisign.pub ./minisign.key 
           - chmod +x /usr/sbin/init
-
-  - name: cleanup2
-    type: shell
-    commands:
-      - rm -rf /tmp/*
-      - rm -rf /var/tmp/*
