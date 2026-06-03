@@ -1,10 +1,10 @@
-name: Vanilla Desktop Nvidia
-id: nvidia
+name: Vanilla GNOME NVIDIA
+id: gnome-nvidia
 vibversion: 1.1.0
 
 stages:
 - id: build
-  base: ghcr.io/vanilla-os/desktop:dev
+  base: ghcr.io/vanilla-os/gnome:latest
   addincludes: true
   singlelayer: false
   labels:
