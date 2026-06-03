@@ -5,8 +5,8 @@
     "registry": "ghcr.io",
     "registryService": "registry.ghcr.io",
     "registryAPIVersion": "v2",
-    "name": "vanilla-os/nvidia",
-    "tag": "main",
+    "name": "vanilla-os/gnome-nvidia",
+    "tag": "latest",
 
     "iPkgMngPre": "lpkg --unlock",
     "iPkgMngPost": "lpkg --lock",
