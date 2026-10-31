@@ -30,6 +30,48 @@ stages:
     - lpkg --unlock
     - apt-get update
 
+  - name: dkms-patched
+    type: shell
+    commands:
+      - mkdir -p /sources/dkms-patched
+      - echo "deb-src http://deb.debian.org/debian sid main contrib non-free non-free-firmware" > /sources/dkms-patched/custom-sources.list
+      - printf 'Dir::Etc::sourcelist "/sources/dkms-patched/custom-sources.list";\nDir::Etc::sourceparts "/dev/null";\n' > /sources/dkms-patched/sid-apt.conf
+
+      - APT_CONFIG=/sources/dkms-patched/sid-apt.conf apt update
+      - cd /sources/dkms-patched && APT_CONFIG=/sources/dkms-patched/sid-apt.conf apt source nvidia-graphics-drivers
+      - cd /sources/dkms-patched/nvidia-graphics-drivers-*/
+
+      - wget -O debian/patches/module/nvidia-550-linux-7.2.patch 'https://bugs.debian.org/cgi-bin/bugreport.cgi?att=2;bug=1148283;filename=nvidia-550-linux-7.2.patch;msg=28'
+
+      - echo "nvidia-550-linux-7.2.patch" >> debian/patches/module/series
+
+      - cd /sources/dkms-patched/nvidia-graphics-drivers-*/
+      - apt build-dep . -y
+      - dpkg-buildpackage -uc -us
+      - apt install -y ../nvidia-kernel-dkms_*.deb firmware-nvidia-gsp nvidia-kernel-support nvidia-driver nvidia-installer-cleanup
+
+      - apt remove -y build-essential dpkg-dev wget patch debhelper dh-dkms dh-exec po-debconf quilt && apt autoremove
+    modules:
+      - name: dkms-patches-deps
+        type: apt
+        sources:
+          - packages:
+            - build-essential
+            - dpkg-dev
+            - wget
+            - patch
+            - debhelper
+            - dh-dkms
+            - dh-exec
+            - libvulkan1
+            - libxext6
+            - quilt
+            - xz-utils
+            - zstd
+            - libglvnd-dev
+            - libgtk2.0-0
+            - libnvidia-egl-wayland1
+
   - name: install-nvidia
     type: apt
     sources:
